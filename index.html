@@ -36,7 +36,23 @@ body {
 
 #cover p {
   font-size: clamp(14px, 4vw, 18px);
-  margin: 8px 0 20px;
+  margin: 8px 0;
+}
+
+#countdown {
+  margin: 14px 0 18px;
+  font-size: clamp(14px, 4vw, 18px);
+}
+
+#mapBtn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 25px;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 #openBtn {
@@ -47,40 +63,23 @@ body {
   cursor: pointer;
 }
 
-/* MAIN */
+/* VIDEO */
 #main {
   display: none;
 }
 
-/* VIDEO */
 video {
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
+  background: black;
 }
 
-/* INFO */
-#info {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  padding: 0 20px;
+/* AUTO SMART */
+@media (max-aspect-ratio: 9/16) {
+  video { object-fit: contain; }
 }
-
-#countdown {
-  font-size: clamp(14px, 4vw, 18px);
-  margin-bottom: 10px;
-}
-
-#mapBtn {
-  display: inline-block;
-  padding: 10px 22px;
-  background: white;
-  color: black;
-  text-decoration: none;
-  border-radius: 25px;
-  font-size: 14px;
+@media (min-aspect-ratio: 9/16) {
+  video { object-fit: cover; }
 }
 </style>
 </head>
@@ -91,23 +90,25 @@ video {
 <div id="cover">
   <h1>Zhafirah & Caesar(Ariel)</h1>
   <p>Minggu, 18 Januari 2026</p>
+
+  <div id="countdown">Menghitung hari...</div>
+
+  <a id="mapBtn" href="https://www.google.com/maps/place/Angonjiwo+Taman+Dayu/@-7.6915093,112.6834238,15z/data=!4m14!1m7!3m6!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!2sAngonjiwo+Taman+Dayu!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r!3m5!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+    📍 Lihat Lokasi
+  </a>
+
   <button id="openBtn">💌 Buka Undangan</button>
 </div>
 
-<!-- MAIN -->
+<!-- VIDEO -->
 <div id="main">
   <video id="video" playsinline controls>
-    <source src="video.mp4" type="video/mp4">
+    <source src="./video.mp4" type="video/mp4">
   </video>
-
-  <div id="info">
-    <div id="countdown">Menghitung hari...</div>
-    <a id="mapBtn" href="https://www.google.com/maps/place/Angonjiwo+Taman+Dayu/@-7.6890035,112.6774332,15z/data=!3m1!4b1!4m6!3m5!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">📍 Lihat Lokasi</a>
-  </div>
 </div>
 
 <script>
-// TOMBOL BUKA
+// BUKA UNDANGAN
 const btn = document.getElementById("openBtn");
 const cover = document.getElementById("cover");
 const main = document.getElementById("main");

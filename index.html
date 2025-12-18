@@ -2,84 +2,89 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Undangan Pernikahan</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan</title>
 
 <style>
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Georgia', serif;
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: black;
-  color: white;
+  background: #000;
+  overflow-x: hidden;
 }
 
-/* COVER */
+/* ===== COVER ===== */
 #cover {
   position: fixed;
   inset: 0;
-  background: black;
+  background-image: url('cover.jpeg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #8b1c1c;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10;
+}
+
+#cover-content {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 24px 28px;
+  border-radius: 18px;
   text-align: center;
-  padding: 20px;
+  max-width: 90%;
 }
 
-#cover h1 {
-  font-size: clamp(22px, 6vw, 32px);
+#cover-content h1 {
+  font-size: 26px;
+  margin-bottom: 8px;
 }
 
-#cover p {
-  font-size: clamp(14px, 4vw, 18px);
-  margin: 8px 0;
+#cover-content p {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 #countdown {
-  margin: 14px 0 18px;
-  font-size: clamp(14px, 4vw, 18px);
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
-#mapBtn {
-  display: inline-block;
-  padding: 10px 24px;
-  background: white;
-  color: black;
+#cover-content a {
+  display: block;
+  color: #8b1c1c;
   text-decoration: none;
-  border-radius: 25px;
-  font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
-#openBtn {
-  padding: 14px 32px;
-  font-size: 16px;
+#cover-content button {
+  background: #8b1c1c;
+  color: #fff;
   border: none;
-  border-radius: 30px;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-/* VIDEO */
-#main {
+/* ===== VIDEO ===== */
+#content {
   display: none;
+  width: 100vw;
+  height: 100vh;
 }
 
 video {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   background: black;
-}
-
-/* AUTO SMART */
-@media (max-aspect-ratio: 9/16) {
-  video { object-fit: contain; }
-}
-@media (min-aspect-ratio: 9/16) {
-  video { object-fit: cover; }
 }
 </style>
 </head>
@@ -88,16 +93,18 @@ video {
 
 <!-- COVER -->
 <div id="cover">
-  <h1>Zhafirah & Caesar(Ariel)</h1>
-  <p>Minggu, 18 Januari 2026</p>
+  <div id="cover-content">
+    <h1>Zhafirah & Caesar(Ariel)</h1>
+    <p>Minggu, 18 Januari 2026</p>
 
-  <div id="countdown">Menghitung hari...</div>
+    <div id="countdown"></div>
 
-  <a id="mapBtn" href="https://www.google.com/maps/place/Angonjiwo+Taman+Dayu/@-7.6915093,112.6834238,15z/data=!4m14!1m7!3m6!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!2sAngonjiwo+Taman+Dayu!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r!3m5!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
-    📍 Lihat Lokasi
-  </a>
+    <a href="https://www.google.com/maps/place/Angonjiwo+Taman+Dayu/@-7.6915093,112.6834238,15z/data=!4m14!1m7!3m6!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!2sAngonjiwo+Taman+Dayu!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r!3m5!1s0x2dd7d7b70e912595:0xdc3fe20685cb59cf!8m2!3d-7.6890249!4d112.6877115!16s%2Fg%2F11pkh66x7r?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+      📍 Lihat Lokasi
+    </a>
 
-  <button id="openBtn">💌 Buka Undangan</button>
+    <button onclick="openInvitation()">Buka Undangan</button>
+  </div>
 </div>
 
 <!-- VIDEO -->
@@ -108,19 +115,13 @@ video {
 </div>
 
 <script>
-// BUKA UNDANGAN
-const btn = document.getElementById("openBtn");
-const cover = document.getElementById("cover");
-const main = document.getElementById("main");
-const video = document.getElementById("video");
+/* ===== BUKA UNDANGAN ===== */
+function openInvitation() {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
 
-btn.onclick = () => {
-  cover.style.display = "none";
-  main.style.display = "block";
-  video.play();
-};
-
-// HITUNG MUNDUR (GANTI TANGGAL DI SINI)
+/* ===== COUNTDOWN ===== */
 const weddingDate = new Date("2026-01-18T10:00:00").getTime();
 const countdownEl = document.getElementById("countdown");
 
@@ -138,7 +139,7 @@ setInterval(() => {
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
   countdownEl.innerHTML =
-    `${days} Hari • ${hours} Jam • ${minutes} Menit`;
+    `${days} hari • ${hours} jam • ${minutes} menit`;
 }, 1000);
 </script>
 
